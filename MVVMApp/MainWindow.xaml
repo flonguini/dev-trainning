@@ -4,9 +4,43 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MVVMApp"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="MVV CRUD" Height="420" Width="720">
     <Grid>
-        
+        <!-- Layouts definitions -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Layout -->
+        <StackPanel Margin="50">
+            <!-- TODO: REPEATED CODE MOVE TO USER CONTROL -->
+            <!-- Name -->
+            <TextBlock Text="Nome:" />
+            <TextBox HorizontalAlignment="Left" Width="250" />
+
+            <!-- Age -->
+            <TextBlock Text="Idade:" />
+            <TextBox HorizontalAlignment="Left" Width="250" />
+
+            <!-- Gender -->
+            <TextBlock Text="Sexo:" />
+            <ComboBox HorizontalAlignment="Left" Width="150" />
+
+            <!-- Save Button -->
+            <Button Content="Salvar" Margin="0,10" />
+            <Button Content="Deletar" />
+
+        </StackPanel>
+
+        <!--Right Layout-->
+        <DataGrid Grid.Column="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nome" Width="150" />
+                <DataGridTextColumn Header="Idade" Width="100" />
+                <DataGridTextColumn Header="Sexo" Width="150" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
