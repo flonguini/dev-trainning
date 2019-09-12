@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.7 Unit Test", "1.7 Unit T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFApp", "WPFApp\WPFApp.csproj", "{0A930244-B117-47BD-881D-C4DBEA6FC27F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMApp", "MVVMApp\MVVMApp.csproj", "{FDE77B7D-D5FA-42CB-9467-35BACCF04CF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,12 +33,17 @@ Global
 		{0A930244-B117-47BD-881D-C4DBEA6FC27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A930244-B117-47BD-881D-C4DBEA6FC27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A930244-B117-47BD-881D-C4DBEA6FC27F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDE77B7D-D5FA-42CB-9467-35BACCF04CF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDE77B7D-D5FA-42CB-9467-35BACCF04CF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDE77B7D-D5FA-42CB-9467-35BACCF04CF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDE77B7D-D5FA-42CB-9467-35BACCF04CF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0A930244-B117-47BD-881D-C4DBEA6FC27F} = {17232AE7-5F4E-48DB-9BAF-FA53A9C34B27}
+		{FDE77B7D-D5FA-42CB-9467-35BACCF04CF6} = {2A351D05-27FE-477E-A4ED-38DAA8BE66E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {71E3067C-A712-4134-939B-4540E6BBE307}
