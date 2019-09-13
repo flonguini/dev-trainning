@@ -4,8 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MVVMApp"
+        xmlns:vm="clr-namespace:MVVMApp.ViewModels"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="MVV CRUD" Height="420" Width="720">
+        Title="MVVM CRUD" Height="420" Width="720">
+    
+    <!-- Data Context -->
+    <Window.DataContext>
+        <vm:MainWindowViewModel />
+    </Window.DataContext>
+    
     <Grid>
         <!-- Layouts definitions -->
         <Grid.ColumnDefinitions>
@@ -31,6 +38,8 @@
             <!-- Save Button -->
             <Button Content="Salvar" Margin="0,10" />
             <Button Content="Deletar" />
+
+            <TextBlock Text="{Binding Title, FallbackValue=No Binding}"/>
 
         </StackPanel>
 
