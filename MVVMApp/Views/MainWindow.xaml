@@ -25,22 +25,20 @@
             <!-- TODO: REPEATED CODE MOVE TO USER CONTROL -->
             <!-- Name -->
             <TextBlock Text="Nome:" />
-            <TextBox HorizontalAlignment="Left" Width="250" />
+            <TextBox HorizontalAlignment="Left" Width="250" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- Age -->
             <TextBlock Text="Idade:" />
-            <TextBox HorizontalAlignment="Left" Width="250" />
+            <TextBox HorizontalAlignment="Left" Width="250" Text="{Binding Age, UpdateSourceTrigger=PropertyChanged }"/>
 
             <!-- Gender -->
             <TextBlock Text="Sexo:" />
-            <ComboBox HorizontalAlignment="Left" Width="150" />
+            <ComboBox HorizontalAlignment="Left" Width="150" Text="{Binding Gender, UpdateSourceTrigger=PropertyChanged}" />
 
             <!-- Save Button -->
-            <Button Content="Salvar" Margin="0,10" />
-            <Button Content="Deletar" />
-
-            <TextBlock Text="{Binding Title, FallbackValue=No Binding}"/>
-
+            <Button Content="Salvar" Margin="0,10" Command="{Binding SaveOrUpdateCommand}" />
+            <!-- Delete Button -->
+            <Button Content="Deletar" Command="{Binding DeleteCommand}" />
         </StackPanel>
 
         <!--Right Layout-->

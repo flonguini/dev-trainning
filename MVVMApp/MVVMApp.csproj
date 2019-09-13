@@ -63,6 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Enums\Genders.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
