@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayCommandWithParameter.cs" />
+    <Compile Include="Enums\EnumBindingSourceExtension.cs" />
     <Compile Include="Enums\Genders.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />

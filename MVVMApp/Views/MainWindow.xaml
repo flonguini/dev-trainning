@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MVVMApp"
+        xmlns:enum="clr-namespace:MVVMApp.Enums"
         xmlns:vm="clr-namespace:MVVMApp.ViewModels"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
@@ -34,10 +35,10 @@
 
             <!-- Gender -->
             <TextBlock Text="Sexo:" />
-            <ComboBox HorizontalAlignment="Left" Width="150" Text="{Binding Gender, UpdateSourceTrigger=PropertyChanged}">
-                <ComboBoxItem Content="Masculino" />
-                <ComboBoxItem Content="Feminino" />
-            </ComboBox>
+            <ComboBox HorizontalAlignment="Left" 
+                      Width="150" 
+                      ItemsSource="{Binding Source={enum:EnumBindingSource {x:Type enum:Genders}}}" 
+                      Text="{Binding Gender, UpdateSourceTrigger=PropertyChanged}" />
 
             <!-- Save Button -->
             <Button Content="Salvar" Margin="0,10" Command="{Binding SaveOrUpdateCommand}" />
