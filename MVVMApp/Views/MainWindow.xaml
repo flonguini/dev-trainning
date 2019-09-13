@@ -34,7 +34,10 @@
 
             <!-- Gender -->
             <TextBlock Text="Sexo:" />
-            <ComboBox HorizontalAlignment="Left" Width="150" Text="{Binding Gender, UpdateSourceTrigger=PropertyChanged}" />
+            <ComboBox HorizontalAlignment="Left" Width="150" Text="{Binding Gender, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBoxItem Content="Masculino" />
+                <ComboBoxItem Content="Feminino" />
+            </ComboBox>
 
             <!-- Save Button -->
             <Button Content="Salvar" Margin="0,10" Command="{Binding SaveOrUpdateCommand}" />

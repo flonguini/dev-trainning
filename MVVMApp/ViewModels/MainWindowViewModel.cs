@@ -120,6 +120,18 @@ namespace MVVMApp.ViewModels
             SelectedPerson = new Person(name: ((Person)parameter).Name,
                                         age: ((Person)parameter).Age,
                                         gender: ((Person)parameter).Gender);
+
+            UpdateViewWithSelectedPerson(SelectedPerson);
+        }
+
+        private void UpdateViewWithSelectedPerson(Person person)
+        {
+            if (person == null)
+                return;
+
+            Name = person.Name;
+            Age = person.Age;
+            Gender = person.Gender;
         }
 
         private void SaveOrUpdate()
