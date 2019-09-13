@@ -11,6 +11,7 @@ namespace MVVMApp.Models
         public string Name { get => _name; set => _name = value; }
         public int? Age { get => _age; set => _age = value; }
         public Genders Gender { get => _gender; set => _gender = value; }
+        public bool CanSave => IsPersonValid();
 
         public Person(string name, int? age, Genders gender)
         {
@@ -21,6 +22,6 @@ namespace MVVMApp.Models
             //TODO: Validate erros
         }
 
-        public bool CanSave() => true;
+        private bool IsPersonValid() => true;
     }
 }

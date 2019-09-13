@@ -20,6 +20,13 @@ namespace MVVMApp.ViewModels
         //   Por outro lado, se eu tenho 30 propriedades em um Model a minha VM ficaria muito poluida. Eu preciso analisar cada caso
         // ou é melhor deixar a interface sempre na VM?
 
+        //   2. Futuramente o DataGrid será populado por uma consulta no banco de dados, quando algum dado for alterado a ObservableCollection
+        // não exibe os valores atualizados, para isso acontecer eu chamo: CollectionViewSource.GetDefaultView(nome_da_observable_collection).Refresh();
+        // eu sempre entendi que as viewmodels devem ser independentes das views. O que eu tinha pensado era criar um método para limpar e popular o DataGrid
+        // e toda vez que ocorre uma alteração eu chamo esse método para recriar, mas eu não acho isso muito efetivo, iria fazer diversas consultas ao banco 
+        // de dados. Existe alguma outra forma de tratar a parte de atualização dos valores do banco de dados nas Views?
+
+
         #region Private Members
 
         private Person _person;
@@ -140,7 +147,7 @@ namespace MVVMApp.ViewModels
                                     age: Age, 
                                     gender: Gender);
 
-            if (newPerson.CanSave())
+            if (newPerson.CanSave)
             {
                 Persons.Add(newPerson);
                 // TODO: Salvar no banco de dados
