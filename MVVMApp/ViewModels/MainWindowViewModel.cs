@@ -1,6 +1,9 @@
 ﻿using MVVMApp.Commands;
 using MVVMApp.Enums;
 using MVVMApp.Models;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace MVVMApp.ViewModels
@@ -27,6 +30,7 @@ namespace MVVMApp.ViewModels
         #endregion
 
         #region Public Properties
+        public Person SelectedPerson { get; set; }
 
         public Person Person
         {
@@ -80,6 +84,8 @@ namespace MVVMApp.ViewModels
             }
         }
 
+        public ObservableCollection<Person> Persons { get; set; }
+
         #endregion
 
         #region Commands
@@ -87,6 +93,8 @@ namespace MVVMApp.ViewModels
         public ICommand SaveOrUpdateCommand { get; set; }
 
         public ICommand DeleteCommand { get; set; }
+
+        public ICommand PersonChangedCommand { get; set; }
 
         #endregion
 
@@ -96,20 +104,46 @@ namespace MVVMApp.ViewModels
         {
             SaveOrUpdateCommand = new RelayCommand(() => SaveOrUpdate());
             DeleteCommand = new RelayCommand(() => Delete());
+            PersonChangedCommand = new RelayCommandWithParameter((parameter) => PersonChanged(parameter));
+            Persons = new ObservableCollection<Person>();
         }
 
         #endregion
 
         #region Private Helpers
 
+        private void PersonChanged(object parameter)
+        {
+            if (parameter == null)
+                return;
+
+            SelectedPerson = new Person(name: ((Person)parameter).Name,
+                                        age: ((Person)parameter).Age,
+                                        gender: ((Person)parameter).Gender);
+        }
+
         private void SaveOrUpdate()
         {
+            var newPerson = new Person(name: Name, 
+                                    age: Age, 
+                                    gender: Gender);
 
+            if (newPerson.CanSave())
+            {
+                Persons.Add(newPerson);
+                // TODO: Salvar no banco de dados
+            }
         }
 
         private void Delete()
         {
-            
+            if (SelectedPerson == null)
+                return;
+
+            // Para remover eu teria que utilizar uma chave primária para identificar apenas um registro
+            // TODO: Localizar pelo ID
+            Persons.Remove(Persons.Where(person => person.Name == SelectedPerson.Name).FirstOrDefault());
+           //TODO: Deletar do banco de dados
         }
 
         #endregion

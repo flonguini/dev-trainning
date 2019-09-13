@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MVVMApp"
         xmlns:vm="clr-namespace:MVVMApp.ViewModels"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="MVVM CRUD" Height="420" Width="720">
     
@@ -42,11 +43,17 @@
         </StackPanel>
 
         <!--Right Layout-->
-        <DataGrid Grid.Column="1">
+        <DataGrid x:Name="PersonsDataGrid" Grid.Column="1" ItemsSource="{Binding Persons}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding PersonChangedCommand}" 
+                                           CommandParameter="{Binding ElementName=PersonsDataGrid, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nome" Width="150" />
-                <DataGridTextColumn Header="Idade" Width="100" />
-                <DataGridTextColumn Header="Sexo" Width="150" />
+                <DataGridTextColumn Header="Nome" Width="150" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Idade" Width="100" Binding="{Binding Age}" />
+                <DataGridTextColumn Header="Sexo" Width="150" Binding="{Binding Gender}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
