@@ -1,9 +1,9 @@
 ﻿using MVVMApp.Commands;
 using MVVMApp.Enums;
 using MVVMApp.Models;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 
 namespace MVVMApp.ViewModels
@@ -26,10 +26,13 @@ namespace MVVMApp.ViewModels
         // e toda vez que ocorre uma alteração eu chamo esse método para recriar, mas eu não acho isso muito efetivo, iria fazer diversas consultas ao banco 
         // de dados. Existe alguma outra forma de tratar a parte de atualização dos valores do banco de dados nas Views?
 
+        //   3. Eu vi que no cronograma não tem a parte de testes, mas eu sempre fico em dúvida o que preciso testar na minha ViewModel
+        // para mim 99% dos métodos são private e nos cursos que fiz sempre disseram para testar os métodos que outras classes tem acesso.
+        // se você puder colocar algum comentário como: "isso deve ser testado" já me ajudaria bastante.
+
 
         #region Private Members
 
-        private Person _person;
         private string _name;
         private Genders _gender;
         private int? _age;
@@ -37,20 +40,8 @@ namespace MVVMApp.ViewModels
         #endregion
 
         #region Public Properties
+
         public Person SelectedPerson { get; set; }
-
-        public Person Person
-        {
-            get => _person;
-            set
-            {
-                if (_person == value)
-                    return;
-
-                _person = value;
-                OnPropertyChanged();
-            }
-        }
 
         public string Name
         {
@@ -59,6 +50,9 @@ namespace MVVMApp.ViewModels
             {
                 if (_name == value)
                     return;
+
+                if(IsNameValid(value))
+                    _errorsList.Clear();
 
                 _name = value;
                 OnPropertyChanged();
@@ -74,6 +68,10 @@ namespace MVVMApp.ViewModels
                     return;
 
                 _age = value;
+
+                if (IsAgeValid(value))
+                    _errorsList.Clear();
+
                 OnPropertyChanged();
             }
         }
@@ -119,14 +117,14 @@ namespace MVVMApp.ViewModels
 
         #region Private Helpers
 
-        private void PersonChanged(object parameter)
+        private void PersonChanged(object person)
         {
-            if (parameter == null)
+            if (person == null)
                 return;
 
-            SelectedPerson = new Person(name: ((Person)parameter).Name,
-                                        age: ((Person)parameter).Age,
-                                        gender: ((Person)parameter).Gender);
+            SelectedPerson = new Person(name: ((Person)person).Name,
+                                        age: ((Person)person).Age,
+                                        gender: ((Person)person).Gender);
 
             UpdateViewWithSelectedPerson(SelectedPerson);
         }
@@ -163,6 +161,42 @@ namespace MVVMApp.ViewModels
             // TODO: Localizar pelo ID
             Persons.Remove(Persons.Where(person => person.Name == SelectedPerson.Name).FirstOrDefault());
            //TODO: Deletar do banco de dados
+        }
+
+        public bool IsNameValid(string name)
+        {
+            bool isValid = true;
+
+            if (string.IsNullOrEmpty(name))
+            {
+                AddError(nameof(Name), "Nome não pode estar em branco");
+                isValid = false;
+            }
+            else if (name.Length < 3 || name.Length > 50)
+            {
+                AddError(nameof(Name), "Nome deve conter entre 3 e 50 caracteres");
+                isValid = false;
+            }
+
+            //OnPropertyChanged(nameof(CanSave));
+
+            return isValid;
+        }
+
+        public bool IsAgeValid(int? age)
+        {
+            Regex regex = new Regex(@"^[0-9]*$");
+            bool isValid = true;
+
+            if (!regex.Match(age.ToString()).Success)
+            {
+                AddError(nameof(Age), "Apenas números são aceitos");
+                isValid = false;
+            }
+
+            //RaisePropertyChanged(nameof(CanSave));
+
+            return isValid;
         }
 
         #endregion

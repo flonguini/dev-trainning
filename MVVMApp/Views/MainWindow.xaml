@@ -15,6 +15,27 @@
         <vm:MainWindowViewModel />
     </Window.DataContext>
     
+    <!-- Data Validation-->
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}" x:Key="TextBlockStyled">
+            <Setter Property="Margin" Value="0,10,0,0"/>
+        </Style>
+        
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder x:Name="errorPlaceHolder" />
+                            <TextBlock FontSize="10" Foreground="Red" 
+                                       Text="{Binding ElementName=errorPlaceHolder, Path=AdornedElement.(Validation.Errors)/ErrorContent}" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <!-- Layouts definitions -->
         <Grid.ColumnDefinitions>
@@ -27,14 +48,18 @@
             <!-- TODO: REPEATED CODE MOVE TO USER CONTROL -->
             <!-- Name -->
             <TextBlock Text="Nome:" />
-            <TextBox HorizontalAlignment="Left" Width="250" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox HorizontalAlignment="Left" 
+                     Width="250" 
+                     Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
 
             <!-- Age -->
-            <TextBlock Text="Idade:" />
-            <TextBox HorizontalAlignment="Left" Width="250" Text="{Binding Age, UpdateSourceTrigger=PropertyChanged }"/>
+            <TextBlock Text="Idade:" Style="{StaticResource TextBlockStyled}"/>
+            <TextBox HorizontalAlignment="Left" 
+                     Width="250" 
+                     Text="{Binding Age, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
 
             <!-- Gender -->
-            <TextBlock Text="Sexo:" />
+            <TextBlock Text="Sexo:" Style="{StaticResource TextBlockStyled}" />
             <ComboBox HorizontalAlignment="Left" 
                       Width="150" 
                       ItemsSource="{Binding Source={enum:EnumBindingSource {x:Type enum:Genders}}}" 
@@ -47,7 +72,8 @@
         </StackPanel>
 
         <!--Right Layout-->
-        <DataGrid x:Name="PersonsDataGrid" Grid.Column="1" ItemsSource="{Binding Persons}">
+        <DataGrid x:Name="PersonsDataGrid" Grid.Column="1" ItemsSource="{Binding Persons}"
+                  AutoGenerateColumns="False">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding PersonChangedCommand}" 
@@ -55,9 +81,9 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nome" Width="150" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="Idade" Width="100" Binding="{Binding Age}" />
-                <DataGridTextColumn Header="Sexo" Width="150" Binding="{Binding Gender}" />
+                <DataGridTextColumn Header="Nome" Width="200" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Idade" Width="50" Binding="{Binding Age}" />
+                <DataGridTextColumn Header="Sexo" Width="100" Binding="{Binding Gender}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
