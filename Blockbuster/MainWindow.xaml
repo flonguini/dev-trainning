@@ -1,0 +1,58 @@
+﻿<Window x:Class="Blockbuster.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Blockbuster.ViewModels"
+        xmlns:local="clr-namespace:Blockbuster"
+        xmlns:enum="clr-namespace:Blockbuster.Enums"
+        xmlns:conv="clr-namespace:Blockbuster.ValueConverter"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1280">
+
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="90" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="95" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Background="Green" Grid.ColumnSpan="2" Panel.ZIndex="3" >
+            <Border.Effect>
+                <DropShadowEffect Opacity="0.3" Direction="270" ShadowDepth="3" />
+            </Border.Effect>
+
+            <TextBlock VerticalAlignment="Center" 
+                       FontSize="35" 
+                       Margin="20,0,0,0">
+                <Run Text="Locadora Fi" Foreground="Red"/><Run Text="/" Foreground="Blue"/><Run Text="mes" Foreground="Red"/>
+            </TextBlock>
+        </Border>
+        
+        <!-- Menu -->
+        <StackPanel Grid.Row="1">
+            <!-- Register Button -->
+            <Button Content="Cadastros" Height="90" 
+                    Command="{Binding MainButtonCommand}" 
+                    CommandParameter="{x:Static enum:ApplicationPages.Register}"/>
+            
+            <!--Rent Button -->
+            <Button Content="Aluguel" Height="90" 
+                    Command="{Binding MainButtonCommand}" 
+                    CommandParameter="{x:Static enum:ApplicationPages.Rent}"/>
+        </StackPanel>
+        
+        <!-- Main Content-->
+        <ContentControl Grid.Row="1" Grid.Column="1"
+                        Content="{Binding MainContent, Converter={conv:ApplicationValueConverter}}"/>
+    </Grid>
+</Window>
