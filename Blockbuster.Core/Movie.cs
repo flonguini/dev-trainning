@@ -9,5 +9,6 @@ namespace Blockbuster.Core
         public int Rate { get; set; }
         public DateTime ReleaseDate { get; set; }
         public int RuntimeInMinutes { get; set; }
+        public string Banner { get; set; }
     }
 }

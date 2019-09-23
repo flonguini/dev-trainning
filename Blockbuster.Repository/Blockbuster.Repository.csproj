@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlockbusterContext.cs" />
+    <Compile Include="Configuration\ClientConfiguration.cs" />
     <Compile Include="Migrations\201909230520354_InitialModel.cs" />
     <Compile Include="Migrations\201909230520354_InitialModel.Designer.cs">
       <DependentUpon>201909230520354_InitialModel.cs</DependentUpon>

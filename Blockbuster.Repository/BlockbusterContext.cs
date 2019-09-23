@@ -1,4 +1,5 @@
 ﻿using Blockbuster.Core;
+using Blockbuster.Repository.Configuration;
 using System.Data.Entity;
 
 namespace Blockbuster.Repository
@@ -10,6 +11,12 @@ namespace Blockbuster.Repository
         public BlockbusterContext() : base("name=BlockbusterConnection")
         {
 
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Configurations.Add(new ClientConfiguration());
         }
     }
 }
