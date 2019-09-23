@@ -1,6 +1,7 @@
 ﻿using Blockbuster.Core;
 using Blockbuster.Repository;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Windows.Input;
 
@@ -9,10 +10,13 @@ namespace Blockbuster.ViewModels.Register
     public class RegisterClientViewModel : BindableBase
     {
         private Client _client;
+        private Client _selectedClient;
         private string _filterClient;
+        private bool _isRemoveVisible;
+        private bool _isProgressBarVisible;
         private ObservableCollection<Client> _clients;
         private ObservableCollection<Client> _filteredClients;
-
+        
         public ObservableCollection<Client> FilteredClients
         {
             get => _filteredClients;
@@ -22,6 +26,46 @@ namespace Blockbuster.ViewModels.Register
                     return;
 
                 _filteredClients = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsProgressBarVisible
+        {
+            get => _isProgressBarVisible;
+            set
+            {
+                if (_isProgressBarVisible == value)
+                    return;
+
+                _isProgressBarVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Client SelectedClient
+        {
+            get => _selectedClient;
+            set
+            {
+                if (_selectedClient == value)
+                    return;
+
+                _selectedClient = value;
+                OnPropertyChanged();
+                IsRemoveVisible = true;
+            }
+        }      
+
+        public bool IsRemoveVisible
+        {
+            get => _isRemoveVisible; 
+            set
+            {
+                if (_isRemoveVisible == value)
+                    return;
+
+                _isRemoveVisible = value;
                 OnPropertyChanged();
             }
         }
@@ -75,19 +119,25 @@ namespace Blockbuster.ViewModels.Register
             RegisterCommand = new RelayCommand(Register);
             DeleteCommand = new RelayCommand(Delete);
             Client = new Client();
-            LoadClients();
+            IsRemoveVisible = false;
+            LoadClientsAsync();
         }
 
         private void Delete()
         {
+            if (SelectedClient == null)
+                return;
+
             using (var context = new BlockbusterContext())
             {
-                context.Clients.Attach(Client);
-                context.Clients.Remove(Client);
+                context.Clients.Attach(SelectedClient);
+                context.Clients.Remove(SelectedClient);
                 context.SaveChanges();
             }
 
-            LoadClients();
+            SelectedClient = null;
+            LoadClientsAsync();
+            IsRemoveVisible = false;
         }
 
         private void Register()
@@ -98,16 +148,20 @@ namespace Blockbuster.ViewModels.Register
                 context.SaveChanges();
             }
 
-            LoadClients();
+            LoadClientsAsync();
             Client = new Client();
         }
 
-        private void LoadClients()
+        private async void LoadClientsAsync()
         {
+            IsProgressBarVisible = true;
+
             using (var context = new BlockbusterContext())
             {
-                Clients = new ObservableCollection<Client>(context.Clients.ToList());
+                Clients = new ObservableCollection<Client>(await context.Clients.ToListAsync());
             }
+
+            IsProgressBarVisible = false;
         }
 
         private void Filter()

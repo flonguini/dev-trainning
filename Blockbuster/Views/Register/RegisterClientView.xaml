@@ -20,6 +20,9 @@
             <Setter Property="FontSize" Value="15" />
             <Setter Property="Margin" Value="0,0,15,0" />
         </Style>
+        
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+        
     </UserControl.Resources>
 
     <Grid Margin="20">
@@ -63,7 +66,8 @@
                     HorizontalAlignment="Right">
             
             <Button Content="Deletar" Width="100" HorizontalAlignment="Left" Margin="0,0,15,0"
-                    Command="{Binding DeleteCommand}"/>
+                    Command="{Binding DeleteCommand}"
+                    Visibility="{Binding IsRemoveVisible, Converter={StaticResource BooleanToVisibility}}"/>
             
             <Button Content="Cadastrar" Width="100" HorizontalAlignment="Left" 
                     Command="{Binding RegisterCommand}"/>
@@ -75,8 +79,10 @@
                 <TextBox Text="{Binding FilterClient, UpdateSourceTrigger=PropertyChanged}" Width="250"/>
             </StackPanel>
 
+            <ProgressBar IsIndeterminate="True" Visibility="{Binding IsProgressBarVisible, Converter={StaticResource BooleanToVisibility}}" />
+
             <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding FilteredClients}" CanUserAddRows="False"
-                      SelectedItem="{Binding Client}">
+                      SelectedItem="{Binding SelectedClient}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Name}" Header="Nome" />
                     <DataGridTextColumn Binding="{Binding Street}" Header="Endereço" />
