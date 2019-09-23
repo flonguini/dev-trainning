@@ -120,6 +120,7 @@ namespace Blockbuster.ViewModels.Register
             DeleteCommand = new RelayCommand(Delete);
             Client = new Client();
             IsRemoveVisible = false;
+            //Boa prática??
             LoadClientsAsync();
         }
 

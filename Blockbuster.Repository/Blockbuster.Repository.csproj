@@ -56,9 +56,18 @@
   <ItemGroup>
     <Compile Include="BlockbusterContext.cs" />
     <Compile Include="Configuration\ClientConfiguration.cs" />
+    <Compile Include="Configuration\MovieConfiguration.cs" />
     <Compile Include="Migrations\201909230520354_InitialModel.cs" />
     <Compile Include="Migrations\201909230520354_InitialModel.Designer.cs">
       <DependentUpon>201909230520354_InitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909231348331_CreateClientTypeConfiguration.cs" />
+    <Compile Include="Migrations\201909231348331_CreateClientTypeConfiguration.Designer.cs">
+      <DependentUpon>201909231348331_CreateClientTypeConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909231412559_CreateMovieTable.cs" />
+    <Compile Include="Migrations\201909231412559_CreateMovieTable.Designer.cs">
+      <DependentUpon>201909231412559_CreateMovieTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,11 +86,12 @@
     <EmbeddedResource Include="Migrations\201909230520354_InitialModel.resx">
       <DependentUpon>201909230520354_InitialModel.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\Debug\Blockbuster.sdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="Migrations\201909231348331_CreateClientTypeConfiguration.resx">
+      <DependentUpon>201909231348331_CreateClientTypeConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909231412559_CreateMovieTable.resx">
+      <DependentUpon>201909231412559_CreateMovieTable.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

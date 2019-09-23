@@ -1,8 +1,7 @@
 ﻿namespace Blockbuster.Core
 {
-    public class Client
+    public class Client : BaseModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Street { get; set; }
         public string Neighborhood { get; set; }

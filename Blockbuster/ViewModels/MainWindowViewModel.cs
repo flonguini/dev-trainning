@@ -1,4 +1,5 @@
 ﻿using Blockbuster.Enums;
+using Blockbuster.Repository;
 using System;
 using System.Windows.Input;
 

@@ -40,28 +40,33 @@
         </Border>
         
         <!-- Menu -->
-        <StackPanel Grid.Row="1" Background="{StaticResource DarkPurpleBrush}">
-            <!-- Register Button -->
-            <Button Content="{StaticResource FontAwesomeAddressCard}" Height="90" 
+        <Border Grid.Row="1" Background="{StaticResource DarkPurpleBrush}" Panel.ZIndex="1">
+            <Border.Effect>
+                <DropShadowEffect Opacity="0.3" Direction="0" ShadowDepth="3" />
+            </Border.Effect>
+            <StackPanel>
+                <!-- Register Button -->
+                <Button Content="{StaticResource FontAwesomeAddressCard}" Height="90" 
                     Command="{Binding MainButtonCommand}" 
                     CommandParameter="{x:Static enum:ApplicationPages.Register}"
                     Style="{StaticResource IconButton}">
-                <Button.Resources>
-                    <sys:String x:Key="Tag">Registros</sys:String>
-                </Button.Resources>
-            </Button>
-            
-            <!--Rent Button -->
-            <Button Content="{StaticResource FontAwesomeCubes}" Height="90" 
+                    <Button.Resources>
+                        <sys:String x:Key="Tag">Cadastros</sys:String>
+                    </Button.Resources>
+                </Button>
+
+                <!--Rent Button -->
+                <Button Content="{StaticResource FontAwesomeCubes}" Height="90" 
                     Command="{Binding MainButtonCommand}" 
                     CommandParameter="{x:Static enum:ApplicationPages.Rent}"
                     Style="{StaticResource IconButton}">
-                <Button.Resources>
-                    <sys:String x:Key="Tag">Aluguel</sys:String>
-                </Button.Resources>
-            </Button>
-        </StackPanel>
-        
+                    <Button.Resources>
+                        <sys:String x:Key="Tag">Aluguel</sys:String>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </Border>
+
         <!-- Main Content-->
         <ContentControl Grid.Row="1" Grid.Column="1" 
                         Content="{Binding MainContent, Converter={conv:ApplicationValueConverter}}"/>

@@ -4,9 +4,89 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Blockbuster.Views.Register"
+             xmlns:vm="clr-namespace:Blockbuster.ViewModels.Register"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text="Resgiter movie" />
+
+    <UserControl.DataContext>
+        <vm:RegisterMovieViewModel/>
+    </UserControl.DataContext>
+
+<UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Foreground" Value="{StaticResource WhiteBrush}" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Margin" Value="0,0,15,0" />
+        </Style>
+
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+
+    </UserControl.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Título" />
+        <TextBlock Grid.Row="1" Text="Ano" />
+        <TextBlock Grid.Row="2" Text="Nota" />
+        <TextBlock Grid.Row="3" Text="Data de Lançamento" />
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="Duração" />
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="Quantidade Disponível" />
+
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Movie.Title}" />
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Movie.Year}" />
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Movie.Rate}" />
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Movie.ReleaseDate}" />
+        <TextBox Grid.Column="4" Grid.Row="0" Text="{Binding Movie.RuntimeInMinutes}" />
+        <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding Movie.QuantityInStock}" />
+
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="4" 
+                    VerticalAlignment="Center" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+
+            <Button Content="Deletar" Width="100" HorizontalAlignment="Left" Margin="0,0,15,0"
+                    Command="{Binding DeleteCommand}"
+                    Visibility="{Binding IsRemoveVisible, Converter={StaticResource BooleanToVisibility}}"/>
+
+            <Button Content="Cadastrar" Width="100" HorizontalAlignment="Left" 
+                    Command="{Binding RegisterCommand}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="4">
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <TextBlock Text="Pesquisar Filme" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding FilterMovie, UpdateSourceTrigger=PropertyChanged}" Width="250"/>
+            </StackPanel>
+
+            <ProgressBar IsIndeterminate="True" Visibility="{Binding IsProgressBarVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Movies}" CanUserAddRows="False"
+                      SelectedItem="{Binding SelectedMovie}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Title}" Header="Título" />
+                    <DataGridTextColumn Binding="{Binding Year}" Header="Ano" />
+                    <DataGridTextColumn Binding="{Binding Rate}" Header="Nota" />
+                    <DataGridTextColumn Binding="{Binding ReleaseDate}" Header="Lançamento" />
+                    <DataGridTextColumn Binding="{Binding RuntimeInMinutes}" Header="Duração" />
+                    <DataGridTextColumn Binding="{Binding QuantityInStock}" Header="Qunatidade" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
     </Grid>
 </UserControl>
