@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Blockbuster.Styles">
+    
+    <Color x:Key="DarkPurple">#2F3242</Color>
+    <SolidColorBrush x:Key="DarkPurpleBrush" Color="{StaticResource DarkPurple}" />
+
+    <Color x:Key="MiddlePurple">#3A3E52</Color>
+    <SolidColorBrush x:Key="MiddlePurpleBrush" Color="{StaticResource MiddlePurple}" />
+
+    <Color x:Key="LightPurple">#737AA1</Color>
+    <SolidColorBrush x:Key="LightPurpleBrush" Color="{StaticResource LightPurple}" />
+
+    <Color x:Key="LightBlue">#2196F3</Color>
+    <SolidColorBrush x:Key="LightBlueBrush" Color="{StaticResource LightBlue}" />
+
+    <Color x:Key="DarkBlue">#237EC9</Color>
+    <SolidColorBrush x:Key="DarkBlueBrush" Color="{StaticResource DarkBlue}" />
+
+    <Color x:Key="DarkRed">#F44336</Color>
+    <SolidColorBrush x:Key="DarkRedBrush" Color="{StaticResource DarkRed}" />
+
+    <Color x:Key="White">#FFFFFF</Color>
+    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}" />
+
+    <Color x:Key="Grey">#707070</Color>
+    <SolidColorBrush x:Key="GreyBrush" Color="{StaticResource Grey}" />
+
+    <Color x:Key="LightGrey">#C3C3C3</Color>
+    <SolidColorBrush x:Key="LightGreyBrush" Color="{StaticResource LightGrey}" />
+</ResourceDictionary>

@@ -1,6 +1,7 @@
 ﻿using Blockbuster.Core;
-using System;
+using Blockbuster.Repository;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace Blockbuster.ViewModels.Register
@@ -9,6 +10,21 @@ namespace Blockbuster.ViewModels.Register
     {
         private Client _client;
         private string _filterClient;
+        private ObservableCollection<Client> _clients;
+        private ObservableCollection<Client> _filteredClients;
+
+        public ObservableCollection<Client> FilteredClients
+        {
+            get => _filteredClients;
+            set
+            {
+                if (_filteredClients == value)
+                    return;
+
+                _filteredClients = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Client Client
         {
@@ -22,6 +38,7 @@ namespace Blockbuster.ViewModels.Register
                 OnPropertyChanged();
             }
         }
+
         public string FilterClient
         {
             get => _filterClient;
@@ -32,14 +49,13 @@ namespace Blockbuster.ViewModels.Register
 
                 _filterClient = value;
                 OnPropertyChanged();
+                Filter();
             }
         }
 
-        private ObservableCollection<Client> _clients;
-
         public ObservableCollection<Client> Clients
         {
-            get =>  _clients;
+            get => _clients;
             set
             {
                 if (_clients == value)
@@ -47,9 +63,9 @@ namespace Blockbuster.ViewModels.Register
 
                 _clients = value;
                 OnPropertyChanged();
+                FilteredClients = new ObservableCollection<Client>(_clients);
             }
         }
-
 
         public ICommand RegisterCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
@@ -59,29 +75,44 @@ namespace Blockbuster.ViewModels.Register
             RegisterCommand = new RelayCommand(Register);
             DeleteCommand = new RelayCommand(Delete);
             Client = new Client();
-
-            Clients = new ObservableCollection<Client>
-            {
-                new Client
-                {
-                 Cellphone = "3565-5495",
-                 City = "São Caetano do Sul",
-                 CPF = "395.891.568-00",
-                 Email = "Flonguini@dsf.sdf",
-                 Name = "Fernando",
-                 Neighborhood = "nova Gerty",
-                 Street = "Rua Gurupi",
-                 Zipcode = "09572-460"
-                }
-            };
+            LoadClients();
         }
 
         private void Delete()
         {
+            using (var context = new BlockbusterContext())
+            {
+                context.Clients.Attach(Client);
+                context.Clients.Remove(Client);
+                context.SaveChanges();
+            }
+
+            LoadClients();
         }
 
         private void Register()
         {
+            using (var context = new BlockbusterContext())
+            {
+                context.Clients.Add(Client);
+                context.SaveChanges();
+            }
+
+            LoadClients();
+            Client = new Client();
+        }
+
+        private void LoadClients()
+        {
+            using (var context = new BlockbusterContext())
+            {
+                Clients = new ObservableCollection<Client>(context.Clients.ToList());
+            }
+        }
+
+        private void Filter()
+        {
+            FilteredClients = new ObservableCollection<Client>(Clients.Where(c => c.Name.Contains(FilterClient)));
         }
     }
 }

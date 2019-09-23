@@ -40,12 +40,13 @@
 
         <ListView ItemsSource="{Binding SubMenuButtons}"
                   ItemsPanel="{StaticResource HorizontalWrap}"
-                  Background="Yellow">
+                  Background="{StaticResource DarkBlueBrush}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Button Content="{Binding Content}" 
                             Command="{Binding Command}" 
-                            CommandParameter="{Binding Parameter}"/>
+                            CommandParameter="{Binding Parameter}"
+                            Style="{StaticResource SubMenuButton}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             

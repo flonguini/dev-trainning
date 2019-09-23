@@ -13,25 +13,22 @@
     </UserControl.DataContext>
 
     <UserControl.Resources>
-        <Style TargetType="{x:Type TextBox}" x:Key="Foo">
-            <Setter Property="Width" Value="250"/>
-            <Setter Property="Height" Value="20" />
-            <Setter Property="Margin" Value="3" />
-        </Style>
-
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Foreground" Value="{StaticResource WhiteBrush}" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Margin" Value="0,0,15,0" />
         </Style>
     </UserControl.Resources>
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -51,29 +48,35 @@
         <TextBlock Grid.Row="2" Grid.Column="2" Text="CEP" />
         <TextBlock Grid.Row="3" Grid.Column="2" Text="CPF" />
 
-        <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource Foo}" Text="{Binding Client.Name}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource Foo}" Text="{Binding Client.Street}" />
-        <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource Foo}" Text="{Binding Client.Neighborhood}" />
-        <TextBox Grid.Column="1" Grid.Row="3" Style="{StaticResource Foo}" Text="{Binding Client.Cellphone}" />
-        <TextBox Grid.Column="4" Grid.Row="0" Style="{StaticResource Foo}" Text="{Binding Client.City}"/>
-        <TextBox Grid.Column="4" Grid.Row="1" Style="{StaticResource Foo}" Text="{Binding Client.Email}" />
-        <TextBox Grid.Column="4" Grid.Row="2" Style="{StaticResource Foo}" Text="{Binding Client.Zipcode}" />
-        <TextBox Grid.Column="4" Grid.Row="3" Style="{StaticResource Foo}" Text="{Binding Client.CPF}" />
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Client.Name}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Client.Street}" />
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Client.Neighborhood}" />
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Client.Cellphone}" />
+        <TextBox Grid.Column="4" Grid.Row="0" Text="{Binding Client.City}"/>
+        <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding Client.Email}" />
+        <TextBox Grid.Column="4" Grid.Row="2" Text="{Binding Client.Zipcode}" />
+        <TextBox Grid.Column="4" Grid.Row="3" Text="{Binding Client.CPF}" />
 
-        <StackPanel Grid.Row="4" Grid.ColumnSpan="4" VerticalAlignment="Center" Orientation="Horizontal">
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="4" 
+                    VerticalAlignment="Center" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            
+            <Button Content="Deletar" Width="100" HorizontalAlignment="Left" Margin="0,0,15,0"
+                    Command="{Binding DeleteCommand}"/>
+            
             <Button Content="Cadastrar" Width="100" HorizontalAlignment="Left" 
                     Command="{Binding RegisterCommand}"/>
-            <Button Content="Deletar" Width="100" HorizontalAlignment="Left" Margin="15,0,0,0"
-                    Command="{Binding DeleteCommand}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="5" Grid.ColumnSpan="4" Margin="0,10">
-            <StackPanel Orientation="Horizontal">
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="4">
+            <StackPanel Orientation="Horizontal" Margin="0,5">
                 <TextBlock Text="Pesquisar Cliente" VerticalAlignment="Center"/>
-                <TextBox Style="{StaticResource Foo}" Text="{Binding FilterClient, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Text="{Binding FilterClient, UpdateSourceTrigger=PropertyChanged}" Width="250"/>
             </StackPanel>
 
-            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Clients}" CanUserAddRows="False">
+            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding FilteredClients}" CanUserAddRows="False"
+                      SelectedItem="{Binding Client}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Name}" Header="Nome" />
                     <DataGridTextColumn Binding="{Binding Street}" Header="Endereço" />

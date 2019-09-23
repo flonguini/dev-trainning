@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:Blockbuster"
         xmlns:enum="clr-namespace:Blockbuster.Enums"
         xmlns:conv="clr-namespace:Blockbuster.ValueConverter"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
 
@@ -26,7 +27,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Border Background="Green" Grid.ColumnSpan="2" Panel.ZIndex="3" >
+        <Border Background="{StaticResource DarkPurpleBrush}" Grid.ColumnSpan="2" Panel.ZIndex="3" >
             <Border.Effect>
                 <DropShadowEffect Opacity="0.3" Direction="270" ShadowDepth="3" />
             </Border.Effect>
@@ -34,25 +35,35 @@
             <TextBlock VerticalAlignment="Center" 
                        FontSize="35" 
                        Margin="20,0,0,0">
-                <Run Text="Locadora Fi" Foreground="Red"/><Run Text="/" Foreground="Blue"/><Run Text="mes" Foreground="Red"/>
+                <Run Text="Locadora Fi" Foreground="{StaticResource WhiteBrush}"/><Run Text="/" Foreground="{StaticResource LightBlueBrush}"/><Run Text="mes" Foreground="{StaticResource WhiteBrush}"/>
             </TextBlock>
         </Border>
         
         <!-- Menu -->
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="1" Background="{StaticResource DarkPurpleBrush}">
             <!-- Register Button -->
-            <Button Content="Cadastros" Height="90" 
+            <Button Content="{StaticResource FontAwesomeAddressCard}" Height="90" 
                     Command="{Binding MainButtonCommand}" 
-                    CommandParameter="{x:Static enum:ApplicationPages.Register}"/>
+                    CommandParameter="{x:Static enum:ApplicationPages.Register}"
+                    Style="{StaticResource IconButton}">
+                <Button.Resources>
+                    <sys:String x:Key="Tag">Registros</sys:String>
+                </Button.Resources>
+            </Button>
             
             <!--Rent Button -->
-            <Button Content="Aluguel" Height="90" 
+            <Button Content="{StaticResource FontAwesomeCubes}" Height="90" 
                     Command="{Binding MainButtonCommand}" 
-                    CommandParameter="{x:Static enum:ApplicationPages.Rent}"/>
+                    CommandParameter="{x:Static enum:ApplicationPages.Rent}"
+                    Style="{StaticResource IconButton}">
+                <Button.Resources>
+                    <sys:String x:Key="Tag">Aluguel</sys:String>
+                </Button.Resources>
+            </Button>
         </StackPanel>
         
         <!-- Main Content-->
-        <ContentControl Grid.Row="1" Grid.Column="1"
+        <ContentControl Grid.Row="1" Grid.Column="1" 
                         Content="{Binding MainContent, Converter={conv:ApplicationValueConverter}}"/>
     </Grid>
 </Window>
