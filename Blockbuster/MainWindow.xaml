@@ -45,6 +45,17 @@
                 <DropShadowEffect Opacity="0.3" Direction="0" ShadowDepth="3" />
             </Border.Effect>
             <StackPanel>
+
+                <!-- Register Home -->
+                <Button Content="{StaticResource FontAwesomeHouse}" Height="90" 
+                    Command="{Binding MainButtonCommand}" 
+                    CommandParameter="{x:Static enum:ApplicationPages.Home}"
+                    Style="{StaticResource IconButton}">
+                    <Button.Resources>
+                        <sys:String x:Key="Tag">Home</sys:String>
+                    </Button.Resources>
+                </Button>
+
                 <!-- Register Button -->
                 <Button Content="{StaticResource FontAwesomeAddressCard}" Height="90" 
                     Command="{Binding MainButtonCommand}" 

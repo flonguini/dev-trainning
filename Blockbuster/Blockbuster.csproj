@@ -75,6 +75,7 @@
     <Compile Include="ValueConverter\RegisterPageValueConverter.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BindableBase.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Register\RegisterClientViewModel.cs" />
     <Compile Include="ViewModels\Register\RegisterMovieViewModel.cs" />
@@ -82,6 +83,9 @@
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\RelayParameterizedCommand.cs" />
     <Compile Include="ViewModels\Rent\RentViewModel.cs" />
+    <Compile Include="Views\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Menu\SubMenu.xaml.cs">
       <DependentUpon>SubMenu.xaml</DependentUpon>
     </Compile>
@@ -122,6 +126,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\TextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

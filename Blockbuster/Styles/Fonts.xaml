@@ -7,4 +7,5 @@
 
     <system:String x:Key="FontAwesomeAddressCard">&#xf2bb;</system:String>
     <system:String x:Key="FontAwesomeCubes">&#xf1b3;</system:String>
+    <system:String x:Key="FontAwesomeHouse">&#xf015;</system:String>
 </ResourceDictionary>

@@ -15,6 +15,8 @@ namespace Blockbuster.ValueConverter
                     return new RegisterView();
                 case ApplicationPages.Rent:
                     return new RentView();
+                case ApplicationPages.Home:
+                    return new HomeView();
                 default:
                     return null;
             }

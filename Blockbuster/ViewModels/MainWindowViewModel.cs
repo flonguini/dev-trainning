@@ -27,6 +27,7 @@ namespace Blockbuster.ViewModels
         public MainWindowViewModel()
         {
             MainButtonCommand = new RelayParameterizedCommand(ButtonCommand);
+            MainContent = ApplicationPages.Home;
         }
 
         private void ButtonCommand(object page)
@@ -38,6 +39,9 @@ namespace Blockbuster.ViewModels
                     break;
                 case ApplicationPages.Rent:
                     MainContent = ApplicationPages.Rent;
+                    break;
+                case ApplicationPages.Home:
+                    MainContent = ApplicationPages.Home;
                     break;
                 default:
                     break;
