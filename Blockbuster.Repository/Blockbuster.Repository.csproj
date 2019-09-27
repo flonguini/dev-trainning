@@ -69,6 +69,10 @@
     <Compile Include="Migrations\201909231412559_CreateMovieTable.Designer.cs">
       <DependentUpon>201909231412559_CreateMovieTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909271656583_ClientsAndMoviesRelationalModel.cs" />
+    <Compile Include="Migrations\201909271656583_ClientsAndMoviesRelationalModel.Designer.cs">
+      <DependentUpon>201909271656583_ClientsAndMoviesRelationalModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -91,6 +95,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909231412559_CreateMovieTable.resx">
       <DependentUpon>201909231412559_CreateMovieTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909271656583_ClientsAndMoviesRelationalModel.resx">
+      <DependentUpon>201909271656583_ClientsAndMoviesRelationalModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

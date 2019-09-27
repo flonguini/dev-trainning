@@ -9,7 +9,7 @@ namespace Blockbuster.Repository
         public DbSet<Client> Clients { get; set; }
         public DbSet<Movie> Movies { get; set; }
 
-        public BlockbusterContext() : base("name=BlockbusterConnection")
+        public BlockbusterContext() : base("BlockbusterConnection")
         {
 
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Blockbuster.Core
 {
@@ -11,5 +12,7 @@ namespace Blockbuster.Core
         public int RuntimeInMinutes { get; set; }
         public string Banner { get; set; }
         public int QuantityInStock { get; set; }
+
+        public ICollection<Client> Clients { get; set; }
     }
 }
