@@ -1,4 +1,5 @@
-﻿namespace Blockbuster.Core
+﻿
+namespace Blockbuster.Core
 {
     public class BaseModel
     {

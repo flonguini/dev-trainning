@@ -3,6 +3,7 @@ using Blockbuster.Repository;
 using System;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Linq;
 using System.Windows.Input;
 
 namespace Blockbuster.ViewModels.Rent
@@ -52,9 +53,9 @@ namespace Blockbuster.ViewModels.Rent
                 _clientCpf = value;
 
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(Client));
             } 
         }
-
 
         public ObservableCollection<Movie> Movies
         {
@@ -68,7 +69,6 @@ namespace Blockbuster.ViewModels.Rent
                 OnPropertyChanged();
             }
         }
-
 
         public ICommand SearchClientCommand { get; set; }
         public ICommand AddMovieCommand { get; set; }
@@ -97,9 +97,31 @@ namespace Blockbuster.ViewModels.Rent
 
         private void AddMovie()
         {
-            if (SelectedMovie != null)
+            if (SelectedMovie != null && Client != null)
             {
-                Client.RentedMovies.Add(SelectedMovie);
+                SelectedMovie.QuantityInStock += -1;
+
+                UpdateRentedMovie(SelectedMovie);
+            }
+
+            LoadMovies();
+        }
+
+        private async void UpdateRentedMovie(Movie selectedMovie)
+        {
+            using (var context = new BlockbusterContext())
+            {
+                var movieToUpdate = await context.Movies.FirstOrDefaultAsync(m => m.Id == SelectedMovie.Id);
+
+                if (movieToUpdate == null)
+                    return;
+
+                movieToUpdate.QuantityInStock = selectedMovie.QuantityInStock;
+
+                //TODO: Update DB
+                Client.RentedMovies.Add(selectedMovie);
+
+                await context.SaveChangesAsync();
             }
         }
 

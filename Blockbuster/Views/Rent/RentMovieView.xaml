@@ -7,28 +7,41 @@
              xmlns:vm="clr-namespace:Blockbuster.ViewModels.Rent"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="1280">
+    
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{StaticResource WhiteBrush}" />
+        </Style>
+    </UserControl.Resources>
+
     <UserControl.DataContext>
         <vm:RentMovieViewModel/>
     </UserControl.DataContext>
+
     <Grid Background="{StaticResource DarkPurpleBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel VerticalAlignment="Center">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-                <TextBlock Text="CPF do Cliente" VerticalAlignment="Center" Margin="0,0,10,0" />
-                <TextBox Width="200" Text="{Binding ClientCpf}" />
-                <Button Content="Pesquisar" Width="100" Margin="10,0,0,0" Command="{Binding SearchClientCommand}" />
-            </StackPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <TextBlock Text="CPF do Cliente" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold" />
+            <TextBox Width="200" Text="{Binding ClientCpf}" />
+            <Button Content="Pesquisar" Width="100" Margin="10,0,0,0" Command="{Binding SearchClientCommand}" />
+        </StackPanel>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock Text="Cliente" Margin="0,10,0,0" />
-                <TextBlock Text="{Binding Client.Name}" />
-            </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center">
+            <TextBlock Text="Cliente: " FontWeight="Bold" />
+            <TextBlock Text="{Binding Client.Name}" />
+        </StackPanel>
 
+        <StackPanel VerticalAlignment="Center" Grid.Row="2">
             <ListView Margin="0,25" Width="350" Height="250" 
                       ItemsSource="{Binding Movies}"
                       SelectedItem="{Binding SelectedMovie}">
@@ -37,25 +50,31 @@
                         <StackPanel>
                             <TextBlock Text="{Binding Title}" FontSize="15" />
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Quantidade: " FontWeight="Bold" FontSize="10" />
-                                <TextBlock Text="{Binding QuantityInStock}" FontSize="10" />
+                                <TextBlock Text="Quantidade: " FontWeight="Bold" FontSize="11" />
+                                <TextBlock Text="{Binding QuantityInStock}" FontSize="11" />
                             </StackPanel>
                         </StackPanel>
-                        
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
 
         </StackPanel>
 
-        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" Grid.RowSpan="3">
             <Button Content="Adicionar" Margin="0,0,0,15" Padding="10" 
                     Command="{Binding AddMovieCommand}" />
             <Button Content="Retirar" Padding="10" Command="{Binding RemoveMovieCommand}" />
         </StackPanel>
 
-        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+        <StackPanel Grid.Column="2" VerticalAlignment="Center" Grid.Row="2">
             <ListView Width="350" Height="250" ItemsSource="{Binding Client.RentedMovies}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Title}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
                 
             </ListView>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
